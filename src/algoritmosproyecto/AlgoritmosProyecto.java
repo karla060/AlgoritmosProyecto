@@ -4,7 +4,9 @@
  */
 package algoritmosproyecto;
 
+
 import java.util.Scanner;
+
 
 /**
  *
@@ -58,8 +60,9 @@ public class AlgoritmosProyecto {
     static void seccionCategorias() {
         System.out.println("  ---Seccion de Categorias de Productos---  "); 
         
-    
-    }
+     
+       }
+
     
      //1.2 Definición de Características:
       //Opcion 2 dentro del switch principal
