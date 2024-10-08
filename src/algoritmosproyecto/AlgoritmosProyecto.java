@@ -45,7 +45,7 @@ public class AlgoritmosProyecto {
     System.out.println(" ");
     System.out.println("Menu principal");
     System.out.println(" ");
-    System.out.println("1. GESTION DE PRODUCTOS");
+    System.out.println("-- GESTION DE PRODUCTOS --");
     System.out.println("1.1 Definicion de Categorias");
     System.out.println("1.2 Definicion de Caracteristicas");
     System.out.println("1.3 Definicion de Especificaciones");
@@ -53,7 +53,7 @@ public class AlgoritmosProyecto {
     System.out.println("1.5.Alta de productos  ");
     System.out.println("1.6. Baja de productos  ");
     System.out.println("1.7. Modificacion de productos  ");*/
-    System.out.print("Escriba el numero correspondiente segun la seccion a la cual desea ingresar: ");
+    System.out.print("Escriba el numero de la seccion a la cual desea ingresar: ");
     seccion = scan.nextLine();
     
      //Switch encargado de direccionar al programa según el número ingresado anteriormente 
@@ -70,6 +70,8 @@ public class AlgoritmosProyecto {
             break;
          default:
             System.out.println("El numero no representa niguna seccion dentro del programa");
+            System.out.print("Intente nuevamente ingresar un numero segun la accion que desee realizar: ");
+            
             break;
        }
     }
@@ -80,16 +82,16 @@ public class AlgoritmosProyecto {
       //Opcion 1 dentro del switch principal 
     static void seccionCategorias() {
         
-    int respuesta = 0, contador= 0; 
+    int respuesta = 0; 
     
     String nombreCate = "";
        File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //"C:\\ArchivoTextoSecuencial\\archivo_texto.txt"
         
        
       do { 
-       System.out.println(" ");
+       System.out.println("                                                ");
        System.out.println("  ---Seccion de Definicion de Categorias---  ");    
-       System.out.println(" ");
+       System.out.println("                                                ");
        System.out.println("Acciones a realizar:");
        System.out.println("1. Ingresar nuevo nombre de categoria:");
        System.out.println("2. Modificar nombre de categoria");
@@ -265,10 +267,11 @@ public class AlgoritmosProyecto {
  //Termina el caso cuando se logra eliminar de manera correcta el nombre de la categoria en el archivo de texto de acceso secuencial       
         case 4: 
             System.out.println("Usted esta saliendo de la Seccion de Definicion de Categorias"); //Salir de la Seccion de Definicion de Categorias
-            
+        break;    
         default :
-            //Mensaje indicando que el numero ingresado no representa ninguna accion dentro del sistema
-            
+            //Mensajes indicando que el numero ingresado no representa ninguna accion dentro del sistema
+            System.out.println("El numero ingresado no representa niguna accion dentro del sistema");
+            System.out.println("Nuevamente se le direccionara al menu principal de Definicion de Categorias  ");
         break;
         
         }
@@ -280,6 +283,11 @@ public class AlgoritmosProyecto {
      //1.2 Definición de Características:
       //Opcion 1.2 dentro del switch principal
     static void seccionCaracteristicas() {
+        
+        
+        
+        
+        
         System.out.println(" ---Seccion de Definicion de Caracteristicas--- ");
     }
 
