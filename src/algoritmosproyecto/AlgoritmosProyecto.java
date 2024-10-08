@@ -17,7 +17,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
-
+import java.io.*;
+import java.nio.file.*;
 
 
 /**
@@ -37,6 +38,7 @@ public class AlgoritmosProyecto {
     String seccion = "";
     //Menú principal 
     do {
+    System.out.println("");    
     System.out.print("********************************************");    
     System.out.print("---SISTEMA DE GESTION DE INVENTARIOS---");
     System.out.print("********************************************");
@@ -51,7 +53,7 @@ public class AlgoritmosProyecto {
     System.out.println("1.5.Alta de productos  ");
     System.out.println("1.6. Baja de productos  ");
     System.out.println("1.7. Modificacion de productos  ");*/
-    System.out.print("Escriba el numero correspondiente segun la seccion a la cual desea ingresar:");
+    System.out.print("Escriba el numero correspondiente segun la seccion a la cual desea ingresar: ");
     seccion = scan.nextLine();
     
      //Switch encargado de direccionar al programa según el número ingresado anteriormente 
@@ -77,88 +79,212 @@ public class AlgoritmosProyecto {
      //1.1 Definición de Categorías:
       //Opcion 1 dentro del switch principal 
     static void seccionCategorias() {
-        System.out.println(" ");
-        System.out.println("  ---Seccion de Definicion de Categorias---  "); 
-    int respuesta = 0; 
+        
+    int respuesta = 0, contador= 0; 
+    
     String nombreCate = "";
        File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //"C:\\ArchivoTextoSecuencial\\archivo_texto.txt"
+        
        
-       do {
+      do { 
+       System.out.println(" ");
+       System.out.println("  ---Seccion de Definicion de Categorias---  ");    
        System.out.println(" ");
        System.out.println("Acciones a realizar:");
        System.out.println("1. Ingresar nuevo nombre de categoria:");
        System.out.println("2. Modificar nombre de categoria");
        System.out.println("3. Eliminar nombre de categoria");
        System.out.println("4. Salir de la seccion de categorias ");
-       System.out.print("Ingrese un numero segun la accion que desee realizar:");
+       System.out.print("Ingrese un numero segun la accion que desee realizar: ");
        respuesta = scan.nextInt();
        scan.nextLine();
        
         switch (respuesta) {
-        case 1:
-        //Escribir archivo
-                try {
-                    //"FileWriter" Creacion de una variable (fw) que servira para escribir en el archivo
-                    FileWriter fw = new FileWriter(f); //se abre el archivo
-                    //"BuffereWriter" almacena los datos temporalmente en la memoria RAM, luego dicho grupo de datos los llevará al disco duro
-                    BufferedWriter bw = new BufferedWriter(fw); //optimiza la lectura/escritura del archivo
-                    //write escribe una cadena de texto
-                    //utilizar la variable "bw" de BuffereWrite                
-                    System.out.print("Ingrese el nombre de la categoria: ");
-                    //guardar resultado en una variable llamada "nombreCate"
-                    nombreCate = scan.nextLine();
-                    while (nombreCate.isBlank()) {
-                    System.out.println("El nombre no puede estar vacio, ingrese nuevamente el nombre: ");
-                    nombreCate = scan.nextLine();
-                    }
-                    
-                    bw.write(nombreCate + "\n"); //escribiendo dentro del archivo
-                    //cerrar el archivo
-                    bw.close();
-                    // prevee errores al escribir el texto y al abrir el archivo nuevamente         
-                    //captura el error al intentar ingresar un texto en "try"
-                } catch (IOException ex) {
-                    Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         //agregar registro
+        case 1: //agregar Categoria
+            
                 try {
                     /*ir hasta el final del archivo, ya que hasta el final del archivo almacenara los nuevos datos
                     (por lo tanto, el true se eccarga de almacenar los dartos anteriormente guardados y al
                     al ingresar nuevos datos, los almacenara dentro de los otros datos existentes)*/
+                    
                     FileWriter fw = new FileWriter(f, true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(nombreCate);
+                // Por medio de un mensaje, se le pide al usuario ingresar el nombre de la nueva categoria 
+                    System.out.print("Ingrese el nombre de la nueva categoria: ");
+                    //guardar resultado en una variable llamada "nombreCate"
+                    nombreCate = scan.nextLine();
+                    while (nombreCate.isBlank()) {
+                    System.out.println("El nombre no puede quedar vacio, intente nuevamente escribir el nombre: ");
+                    nombreCate = scan.nextLine();
+                    }
+                    
+                    bw.write(nombreCate + "\n");
                     bw.close();
                 } catch (IOException ex) {
+                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }               
+                System.out.println("La categoria, " + nombreCate + " ha sido ingresada al archivo de texto");
+                    break;
+   
+
+
+//Termina el caso cuando se logre almacenar de manera correcta el dato en el archivo de tecto de acceso secuencial     
+
+        case 2: //modificar Categorias
+                System.out.println("");
+                System.out.println("LISTA DE CATEGORIAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivo = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+                      String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+            
+                try {
+            
+                    System.out.print("Ingrese el nombre de la categoria que desee modificar: ");
+                    String modiCate = scan.nextLine();
+                    while (modiCate.isBlank()) {
+                    System.out.print("El nombre no puede quedar vacio, intente nuevamente escribir el nombre de la categoria que desee modificar: ");
+                     modiCate = scan.nextLine();
+                    }
+                    System.out.print("Ingrese el nuevo nombre: ");
+                    String nuevoNombre = scan.nextLine();
+                    while (nuevoNombre.isBlank()) {
+                    System.out.print("El nombre no puede quedar vacio, intente nuevamente escribir el nuevo nombre de la categoria: ");
+                    nuevoNombre = scan.nextLine();
+             }
+           
+            
+                 // objeto File que representa el archivo de copia.
+                 File fc = new File("C:\\algoritmosProyecto\\DefinicionCategoríasCopia.txt");
+            
+                  //abrir el archivo original para lectura
+                   //por medio de BufferedReader y FileReader se abre el archivo original para lectura
+                 try (BufferedReader br = new BufferedReader(new FileReader(f));
+                  //por medio de BufferedWriter y FileWriter se abre el archivo de copia para escritura         
+                 BufferedWriter bw = new BufferedWriter(new FileWriter(fc))) {
+                
+                  String linea; //Se declara una variable llamada linea que almacenará cada línea leída del archivo.
+                while ((linea = br.readLine()) != null) { //verifica los datos hasta que los datos sean nulos o inexistentes  
+                    String[] datos = linea.split("\\|");
+                    //Compara la primera parte de la línea con modiCate. Si son iguales, modificara la línea.
+                    if (datos[0].compareTo(modiCate) == 0) {
+                        datos[0] = nuevoNombre;
+                        linea = String.join("|", datos);
+                    }
+                    bw.write(linea);
+                    bw.newLine();
+                }
+            }
+            
+            Files.move(fc.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("El nombre de la categoria ha sido modificado por completo");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+               
+           break; 
+            
+//Termina el caso cuando se logra modificar de manera correcta  el nombre de la categoria en el archivo de texto de acceso secuencial      
+       
+        case 3: //eliminar categoria
+            System.out.println("");
+            System.out.println("LISTA DE CATEGORIAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivoo = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
+                    //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoo))) { 
+                      String texto;
+                    while ((texto = br.readLine()) != null) { //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto); //en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+            
+            
+                try {
+                    
+                    System.out.print("Ingrese el nombre de la categoria que desee eliminar: ");
+                    String eliminarCate = scan.nextLine();
+                    while (eliminarCate.isBlank()) {
+                    System.out.print("El nombre no puede quedar vacio, ingrese nuevamente el nombre de la categoria que desee eliminar: ");
+                    eliminarCate = scan.nextLine();}
+                
+                    FileReader fr = new FileReader(f);
+                    
+                    BufferedReader br = new BufferedReader(fr);
+                  
+                            
+                    File fc = new File("archivo_texto_copia.txt");
+                    FileWriter fw = new FileWriter(fc);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    
+                    String linea = "";
+                    //leer el archivo original linea por linea
+                    while((linea = br.readLine()) != null) {
+                        //split dividir una cadenta en base a las cadenas que ya estaban
+                        //separa una cadena en un conjunto de cadenas 
+                        
+                        String [] datos = linea.split("\\|");
+                        
+                        //verifica subcadena por subcadena 
+                        //se cierra el bucle cuando encuentre el mismo caracter 
+                        if (datos[0].compareTo(eliminarCate) != 0) {
+                            //agregar los datos que no tengan el dato "123456" y darle un salto de linea
+                            bw.write(linea+"\n");
+                        }
+                    }
+                    
+                    bw.close();
+                    br.close();
+                    
+                    //cambniarle el nombre 
+                    //asignando el nombre del antiguo archivo al archivo nuevo 
+                    Files.move(fc.toPath(), f.toPath(), REPLACE_EXISTING);
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                System.out.println("La categoría" + nombreCate + "ha sido ingresada al archivo de texto Secuencial");
-        //Termina el caso cuando se logre almacenar de manera correcta el dato en el archivo de tecto de acceso secuencial     
+                } catch (IOException ex) {
+                    Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }    
+            System.out.println("El nombre de la categoria se ha eliminado por completo del sistema");
         break;
-        case 2:
-         
-             
-        System.out.print("Ingrese el nombre de la categorIa a modificar: ");
-        String modiCate = scan.nextLine();
-        System.out.println("La categoría, " + modiCate + " ha sido modificada sin novedades");
+ //Termina el caso cuando se logra eliminar de manera correcta el nombre de la categoria en el archivo de texto de acceso secuencial       
+        case 4: 
+            System.out.println("Usted esta saliendo de la Seccion de Definicion de Categorias"); //Salir de la Seccion de Definicion de Categorias
+            
+        default :
+            //Mensaje indicando que el numero ingresado no representa ninguna accion dentro del sistema
+            
         break;
         
+        }
+
+       } while (respuesta != 4);//La seccion de categorías se sigue ejecutando hasta que el usuario seleccione el número cuatro
         
-        
-        }  
-       
-       } while (respuesta != 0);
-       
     }
-    
+     
      //1.2 Definición de Características:
-      //Opcion 2 dentro del switch principal
+      //Opcion 1.2 dentro del switch principal
     static void seccionCaracteristicas() {
         System.out.println(" ---Seccion de Definicion de Caracteristicas--- ");
     }
 
      //1.3 Definición de Especificaciones:
-      //Opcion 3 dentro del switch principal
+      //Opcion 1.3 dentro del switch principal
     static void seccionEspecificaciones() {
         System.out.println(" ---Seccion de Definicion de Especificaciones--- ");
     }
