@@ -70,7 +70,7 @@ public class AlgoritmosProyecto {
             break;
          default:
             System.out.println("El numero no representa niguna seccion dentro del programa");
-            System.out.print("Intente nuevamente ingresar un numero segun la accion que desee realizar: ");
+            System.out.print("Intente nuevamente intente escribir el numero de la seccion a la cual desea ingresar: ");
             
             break;
        }
@@ -85,7 +85,7 @@ public class AlgoritmosProyecto {
     int respuesta = 0; 
     
     String nombreCate = "";
-       File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //"C:\\ArchivoTextoSecuencial\\archivo_texto.txt"
+       File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //Creacion de una nueva representacion de un archivo
         
        
       do { 
@@ -93,10 +93,10 @@ public class AlgoritmosProyecto {
        System.out.println("  ---Seccion de Definicion de Categorias---  ");    
        System.out.println("                                                ");
        System.out.println("Acciones a realizar:");
-       System.out.println("1. Ingresar nuevo nombre de categoria:");
-       System.out.println("2. Modificar nombre de categoria");
-       System.out.println("3. Eliminar nombre de categoria");
-       System.out.println("4. Salir de la seccion de categorias ");
+       System.out.println("1. Ingresar el nombre de una nueva categoria:");
+       System.out.println("2. Modificar el nombre de alguna categoria ya existente");
+       System.out.println("3. Eliminar alguna categoria ya existente ");
+       System.out.println("4. Salir de la seccion de Definicion de Categorias ");
        System.out.print("Ingrese un numero segun la accion que desee realizar: ");
        respuesta = scan.nextInt();
        scan.nextLine();
@@ -106,7 +106,7 @@ public class AlgoritmosProyecto {
             
                 try {
                     /*ir hasta el final del archivo, ya que hasta el final del archivo almacenara los nuevos datos
-                    (por lo tanto, el true se eccarga de almacenar los dartos anteriormente guardados y al
+                    (por lo tanto, el true se eccarga de almacenar los datos anteriormente guardados y al
                     al ingresar nuevos datos, los almacenara dentro de los otros datos existentes)*/
                     
                     FileWriter fw = new FileWriter(f, true);
@@ -126,6 +126,7 @@ public class AlgoritmosProyecto {
                      Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 }               
                 System.out.println("La categoria, " + nombreCate + " ha sido ingresada al archivo de texto");
+                System.out.println("El programa nuevamente lo llevará al apartado principal de Definicion de Categorias  ");
                     break;
    
 
@@ -188,14 +189,14 @@ public class AlgoritmosProyecto {
             }
             
             Files.move(fc.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("El nombre de la categoria ha sido modificado por completo");
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-               
+           System.out.println("El nombre de la categoria ha sido modificado por completo");
+           System.out.println("El programa nuevamente lo llevará al apartado principal de Definicion de Categorias  ");        
            break; 
             
 //Termina el caso cuando se logra modificar de manera correcta  el nombre de la categoria en el archivo de texto de acceso secuencial      
@@ -222,7 +223,7 @@ public class AlgoritmosProyecto {
                     
                     System.out.print("Ingrese el nombre de la categoria que desee eliminar: ");
                     String eliminarCate = scan.nextLine();
-                    while (eliminarCate.isBlank()) {
+                    while (eliminarCate.isBlank()) { //bucle que impide los espacios en blanco
                     System.out.print("El nombre no puede quedar vacio, ingrese nuevamente el nombre de la categoria que desee eliminar: ");
                     eliminarCate = scan.nextLine();}
                 
@@ -235,10 +236,9 @@ public class AlgoritmosProyecto {
                     FileWriter fw = new FileWriter(fc);
                     BufferedWriter bw = new BufferedWriter(fw);
                     
-                    String linea = "";
-                    //leer el archivo original linea por linea
+                    String linea = "";//leer el archivo original linea por linea
                     while((linea = br.readLine()) != null) {
-                        //split dividir una cadenta en base a las cadenas que ya estaban
+                        //split divide una cadenta con base a las cadenas que ya estaban
                         //separa una cadena en un conjunto de cadenas 
                         
                         String [] datos = linea.split("\\|");
@@ -246,7 +246,7 @@ public class AlgoritmosProyecto {
                         //verifica subcadena por subcadena 
                         //se cierra el bucle cuando encuentre el mismo caracter 
                         if (datos[0].compareTo(eliminarCate) != 0) {
-                            //agregar los datos que no tengan el dato "123456" y darle un salto de linea
+                            //agregar los datos que no contengan el dato especifico escrito por el usuario y luego darle un salto de linea
                             bw.write(linea+"\n");
                         }
                     }
@@ -263,6 +263,7 @@ public class AlgoritmosProyecto {
                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 }    
             System.out.println("El nombre de la categoria se ha eliminado por completo del sistema");
+            System.out.println("El programa nuevamente lo llevara al apartado principal de Definicion de Categorias  ");
         break;
  //Termina el caso cuando se logra eliminar de manera correcta el nombre de la categoria en el archivo de texto de acceso secuencial       
         case 4: 
@@ -271,7 +272,7 @@ public class AlgoritmosProyecto {
         default :
             //Mensajes indicando que el numero ingresado no representa ninguna accion dentro del sistema
             System.out.println("El numero ingresado no representa niguna accion dentro del sistema");
-            System.out.println("Nuevamente se le direccionara al menu principal de Definicion de Categorias  ");
+            System.out.println("El programa nuevamente lo llevará al apartado principal de Definicion de Categorias  ");
         break;
         
         }
@@ -283,14 +284,195 @@ public class AlgoritmosProyecto {
      //1.2 Definición de Características:
       //Opcion 1.2 dentro del switch principal
     static void seccionCaracteristicas() {
+       int respuesta = 0; 
+    
+    String nombreCaracteristica = "";
+       File f = new File("C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt"); //Creacion de una nueva representacion de un archivo
         
+       
+      do { 
+       System.out.println("                                                ");
+       System.out.println("  ---Menu de Definicion de Caracteristicas---  ");    
+       System.out.println("                                                ");
+       System.out.println("Acciones a realizar:");
+       System.out.println("1. Ingresar el nombre de una nueva caracteristica:");
+       System.out.println("2. Modificar el nombre de alguna caracteristica ya existente");
+       System.out.println("3. Eliminar alguna caracteristica ya existente ");
+       System.out.println("4. Salir de la seccion de Definicion de Caracteristicas ");
+       System.out.print("Ingrese un numero segun la accion que desee realizar: ");
+       respuesta = scan.nextInt();
+       scan.nextLine(); 
+       
+       switch (respuesta) {
+        case 1: //agregar caracteristica
+            
+                try {
+                    /*ir hasta el final del archivo, ya que hasta el final del archivo almacenara los nuevos datos
+                    (por lo tanto, el true se eccarga de almacenar los datos anteriormente guardados y al
+                    al ingresar nuevos datos, los almacenara dentro de los otros datos existentes)*/
+                    
+                    FileWriter fw = new FileWriter(f, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                // Por medio de un mensaje, se le pide al usuario ingresar el nombre de la nueva caracteristica 
+                    System.out.print("Ingrese el nombre de la nueva caracteristica: ");
+                    //guardar resultado en una variable llamada "nombreCaracteristica"
+                    nombreCaracteristica = scan.nextLine();
+                    while (nombreCaracteristica.isBlank()) { //si el espacio donde debe ir la caracteristica queda en blanco se activara el bucle
+                    System.out.println("El nombre no puede quedar vacio, intente nuevamente escribir el nombre: ");
+                    nombreCaracteristica = scan.nextLine();
+                    }
+                    //escribir el nombre y guardarlo en el archivo
+                    bw.write(nombreCaracteristica + "\n");
+                    bw.close();
+                } catch (IOException ex) {
+                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }               
+                System.out.println("La caracteristica, " + nombreCaracteristica + " ha sido ingresada al archivo de texto");
+                System.out.println("El programa nuevamente lo llevará al apartado principal de Definicion de Caracteristicas  ");
+                    break; 
+//Termina el caso cuando se logre almacenar de manera correcta el dato en el archivo de tecto de acceso secuencial         
+               
+           case 2: //modificar caracteristica
+                System.out.println("");
+                System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivo = "C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+                      String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+            
+                try {
+            
+                    System.out.print("Ingrese el nombre de la caracteristica que desee modificar: ");
+                    String modiCarac = scan.nextLine();
+                    while (modiCarac.isBlank()) { // si el nombre queda vacio, se activara el bucle
+                    System.out.print("El nombre no puede quedar vacio, intente nuevamente escribir el nombre de la caracteristica que desee modificar: ");
+                     modiCarac = scan.nextLine();
+                    }
+                    System.out.print("Ingrese el nuevo nombre: ");
+                    String nuevoNombre = scan.nextLine();
+                    while (nuevoNombre.isBlank()) {
+                    System.out.print("El nombre no puede quedar vacio, intente nuevamente escribir el nuevo nombre de la caracteristica: ");
+                    nuevoNombre = scan.nextLine();
+             }
+           
+            
+                 // objeto File que representa el archivo de copia.
+                 File fc = new File("C:\\algoritmosProyecto\\DefinicionCaracteristicasCopia.txt");
+            
+                  //abrir el archivo original para lectura
+                   //por medio de BufferedReader y FileReader se abre el archivo original para lectura
+                 try (BufferedReader br = new BufferedReader(new FileReader(f));
+                  //por medio de BufferedWriter y FileWriter se abre el archivo de copia para escritura         
+                 BufferedWriter bw = new BufferedWriter(new FileWriter(fc))) {
+                
+                  String linea; //Se declara una variable llamada linea que almacenará cada línea leída del archivo.
+                while ((linea = br.readLine()) != null) { //verifica los datos hasta que los datos sean nulos o inexistentes  
+                    String[] datos = linea.split("\\|");
+                    //Compara la primera parte de la línea con modiCarac. Si son iguales, modificara la línea.
+                    if (datos[0].compareTo(modiCarac) == 0) {
+                        datos[0] = nuevoNombre;
+                        linea = String.join("|", datos);
+                    }
+                    bw.write(linea);
+                    bw.newLine();
+                }
+            }
+            
+                 Files.move(fc.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+             } catch (FileNotFoundException ex) {
+                 Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (IOException ex) {
+                 Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+             }
+                 System.out.println("El nombre de la caracteristica ha sido modificado por completo");
+                 System.out.println("El programa nuevamente lo llevará al apartado principal de Definicion de Caracteristicas ");   
+              break; 
+            
+//Termina el caso cuando se logra modificar de manera correcta  el nombre de la categoria en el archivo de texto de acceso secuencial      
+       
+           case 3: //eliminar caracteristica
+            System.out.println("");
+            System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivoo = "C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt";
+                    //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoo))) { 
+                      String texto;
+                    while ((texto = br.readLine()) != null) { //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto); //en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+            
+            
+                try {
+                    
+                    System.out.print("Ingrese el nombre de la caracteristica que desee eliminar: ");
+                    String eliminarCarac = scan.nextLine();
+                    while (eliminarCarac.isBlank()) { //si el nombre de la caracteristica queda vacio, se activara el bucle
+                    System.out.print("El nombre no puede quedar vacio, ingrese nuevamente el nombre de la caracteristica que desee eliminar: ");
+                    eliminarCarac = scan.nextLine();}
+                
+                    FileReader fr = new FileReader(f);
+                     // trae los datos del disco duro hacia "BuffereReader" para leer los archivos de manera mas eficiente
+                    BufferedReader br = new BufferedReader(fr); //leer el archivo original
+                  
+                            
+                    File fc = new File("archivo_texto_copia_caracteristica.txt");
+                    FileWriter fw = new FileWriter(fc);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    
+                    String linea = "";
+                    
+                    while((linea = br.readLine()) != null) {
+                        //split divide una cadena con base a las cadenas que ya estaban
+                        //separa una cadena en un conjunto de cadenas 
+                        
+                        String [] datos = linea.split("\\|");
+                        
+                        //verifica subcadena por subcadena 
+                        //se cierra el bucle cuando encuentre el mismo caracter 
+                        if (datos[0].compareTo(eliminarCarac) != 0) {
+                            //agregar los datos que no contengan el dato especifico escrito por el usuario y luego darle un salto de linea
+                            bw.write(linea+"\n"); //
+                        }
+                    }
+                    
+                    bw.close();
+                    br.close();
+                    
+                    //cambniarle el nombre 
+                    //asignando el nombre del antiguo archivo al archivo nuevo 
+                    Files.move(fc.toPath(), f.toPath(), REPLACE_EXISTING);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }    
+            System.out.println("El nombre de la caracteristica se ha eliminado por completo del sistema");
+            System.out.println("El programa nuevamente lo llevara al apartado principal de Definicion de Caracteristicas");
+        break;      
+                    
+                    
+                    
+                    
+       }
+       
         
-        
-        
-        
-        System.out.println(" ---Seccion de Definicion de Caracteristicas--- ");
+     } while (respuesta != 4);
     }
-
      //1.3 Definición de Especificaciones:
       //Opcion 1.3 dentro del switch principal
     static void seccionEspecificaciones() {
