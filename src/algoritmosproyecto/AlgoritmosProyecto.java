@@ -71,6 +71,15 @@ public class AlgoritmosProyecto {
         case "1.4": 
             asignacionAProductos();
             break;
+        case "1.5": 
+            altaDeProductos();
+            break;  
+         case "1.6": 
+            bajaDeProductos();
+            break;
+         case "1.7": 
+            bajaDeProductos();
+            break;   
          default:
             System.out.println("El numero no representa niguna seccion dentro del programa");
             System.out.print("Intente nuevamente intente escribir el numero de la seccion a la cual desea ingresar: ");
@@ -88,13 +97,26 @@ public class AlgoritmosProyecto {
     int respuesta = 0; 
     
     String nombreCate = "";
-       File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //Creacion de una nueva representacion de un archivo
-        
-       
+       File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //Creacion de una nueva representacion de un archivo    
       do { 
        System.out.println("                                                ");
-       System.out.println("  ---Seccion de Categorías de Productos---  ");    
+       System.out.println("         ---SECCION DE CATEGORIAS DE PRODUCTO---  ");    
        System.out.println("                                                ");
+                System.out.println("            LISTA DE CATEGORIAS EXISTENTES:    ");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivouno = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivouno))) {
+                      String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+       
        System.out.println("Acciones a realizar:");
        System.out.println("1. Ingresar el nombre de una nueva categoria:");
        System.out.println("2. Modificar el nombre de alguna categoria ya existente");
@@ -106,6 +128,7 @@ public class AlgoritmosProyecto {
        
         switch (respuesta) {
         case 1: //agregar Categoria
+           
             
                 try {
                     /*ir hasta el final del archivo, ya que hasta el final del archivo almacenara los nuevos datos
@@ -129,7 +152,7 @@ public class AlgoritmosProyecto {
                      Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 }               
                 System.out.println("La categoria, " + nombreCate + " ha sido ingresada al archivo de texto");
-                System.out.println("El programa nuevamente lo llevara al apartado principal de Categorías de Productos  ");
+                System.out.println("El programa nuevamente lo llevara al apartado principal de Categorias de Productos  ");
                     break;
    
 
@@ -138,7 +161,7 @@ public class AlgoritmosProyecto {
 
         case 2: //modificar Categorias
                 System.out.println("");
-                System.out.println("LISTA DE CATEGORIAS EXISTENTES:");
+                System.out.println("           LISTA DE CATEGORIAS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
                     String rutaArchivo = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
@@ -296,8 +319,22 @@ public class AlgoritmosProyecto {
        
       do { 
        System.out.println("                                                ");
-       System.out.println("  ---Seccion de Caracteristicas de Productos---  ");    
+       System.out.println("    ---SECCION DE CARACTERISTICAS DE PRODUCTO---  ");    
        System.out.println("                                                ");
+                System.out.println("         LISTA DE CARACTERISTICAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivoi = "C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoi))) {
+                      String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
        System.out.println("Acciones a realizar:");
        System.out.println("1. Ingresar el nombre de una nueva caracteristica:");
        System.out.println("2. Modificar el nombre de alguna caracteristica ya existente");
@@ -494,8 +531,22 @@ public class AlgoritmosProyecto {
        
       do { 
        System.out.println("                                                ");
-       System.out.println("  ---Seccion de Especificaciones de Productos---  ");    
+       System.out.println("  ---SECCION DE ESPECIFICACIONES DE PRODUCTO---  ");    
        System.out.println("                                                ");
+                System.out.println("      LISTA DE ESPECIFICACIONES EXISTENTES:");
+                System.out.println("--------------------------------------------------");
+                //Definirá en una variable la ruta del archivo que se desea leer
+                String rutaArchivoE = "C:\\algoritmosProyecto\\DefinicionEspecificacion.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoE))) {
+                    String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
        System.out.println("Acciones a realizar:");
        System.out.println("1. Ingresar una nueva especificacioin:");
        System.out.println("2. Modificar el nombre de alguna especificacion ya existente");
@@ -683,15 +734,27 @@ public class AlgoritmosProyecto {
              }
     
         static void asignacionAProductos() {
+        
             
             
             
-    
+         
         }
     
     
+        static void altaDeProductos (){
+        
+            
+            
+            
+            
+            
+        }
     
-    
+        
+        static void bajaDeProductos() {
+            
+        }
     
     
         }
