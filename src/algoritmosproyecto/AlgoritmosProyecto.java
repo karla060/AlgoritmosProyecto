@@ -734,7 +734,31 @@ public class AlgoritmosProyecto {
              }
     
         static void asignacionAProductos() {
-        
+            String producto = "";
+            
+          File file = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt"); //Creacion de una nueva representacion de un archivo      
+             
+         try {
+                    FileWriter fw = new FileWriter(file, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                // Por medio de un mensaje, se le pide al usuario ingresar el nombre del nuevo producto
+                    System.out.print("Ingrese el nombre del nuevo producto: ");
+                    //guardar resultado en una variable llamada "Productos"
+                    producto = scan.nextLine();
+                    while (producto.isBlank()) { //si el espacio donde debe ir la caracteristica queda en blanco se activara el bucle
+                    System.out.print("El nombre no puede quedar vacio, intente nuevamente escribir el nombre: ");
+                    producto = scan.nextLine();
+                    }
+                    //escribir el nombre y guardarlo en el archivo
+                    bw.write(producto + "\n");
+                    bw.close();
+                    System.out.print("El nombre del producto se ha guardado dentro del sistema");
+                    
+                    
+                    
+                } catch (IOException ex) {
+                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }               
             
             
             
