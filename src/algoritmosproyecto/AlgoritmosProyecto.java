@@ -46,9 +46,9 @@ public class AlgoritmosProyecto {
     System.out.println("Menu principal");
     System.out.println(" ");
     System.out.println("-- GESTION DE PRODUCTOS --");
-    System.out.println("1.1 Definicion de Categorias");
-    System.out.println("1.2 Definicion de Caracteristicas");
-    System.out.println("1.3 Definicion de Especificaciones");
+    System.out.println("1.1 Seccion de Categorias de Productos");
+    System.out.println("1.2 Seccion de Caracteristicas de Productos");
+    System.out.println("1.3 Seccion de Especificaciones de Productos");
     System.out.println("1.4 Asignacion de Categorias, Caracteristicas y Especificaciones a Productos  ");
     System.out.println("1.5 Alta de productos ");
     System.out.println("1.6 Baja de productos  ");
@@ -734,7 +734,7 @@ public class AlgoritmosProyecto {
              }
     
         static void asignacionAProductos() {
-            String producto = "";
+            String producto = "", caracteristica = "", especificacion = "", productoos="";
             
           File file = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt"); //Creacion de una nueva representacion de un archivo      
              
@@ -752,19 +752,38 @@ public class AlgoritmosProyecto {
                     //escribir el nombre y guardarlo en el archivo
                     bw.write(producto + "\n");
                     bw.close();
-                    System.out.print("El nombre del producto se ha guardado dentro del sistema");
-                    
-                    
-                    
+                    System.out.print("El nombre del producto se ha guardado dentro del sistema:");
+                           
                 } catch (IOException ex) {
                      Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 }               
             
+                System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
+                    System.out.println("--------------------------------------------------");
+                    //Definirá en una variable la ruta del archivo que se desea leer
+                    String rutaArchivo = "C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+                      String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
+                    System.out.print("Ingrese la característica que defina las propiedades del producto");
+                    
+                    caracteristica = scan.nextLine();
+                    
+                    
+                    /*String [] productos = new String [][]*/
+                    
+                    
+                    }               
+
             
-            
-         
-        }
-    
+     
     
         static void altaDeProductos (){
         
