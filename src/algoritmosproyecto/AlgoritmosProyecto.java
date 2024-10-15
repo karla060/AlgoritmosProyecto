@@ -731,7 +731,7 @@ public class AlgoritmosProyecto {
                      System.out.println("El programa nuevamente lo llevara al apartado principal de Especificaciones de Productos  ");
                 break;                                
                }              
-               }while (respuesta != 4);    
+               }while (respuesta != 4);  //mientras la respuesta sea distinta a 4 el programa seguirá en marcha  
              }
     
         static void asignacionAProductos() {
@@ -783,10 +783,14 @@ public class AlgoritmosProyecto {
             System.out.print("Ingrese la categoria que defina las propiedades del producto: ");
             categoria = scan.nextLine();
             while (categoria.isBlank()) {
-                System.out.print("La categoría no puede quedar vacía, intente nuevamente: ");
+                System.out.print("La categoría no puede quedar vacía, intente nuevamente ingresarla: ");
                 categoria = scan.nextLine();
             }
 
+            
+            System.out.println("                                                ");
+            System.out.println("  -----Asignacion de la caracteristica-----");
+            System.out.println("                                                ");
             System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
@@ -802,20 +806,51 @@ public class AlgoritmosProyecto {
                 }
                     System.out.println("--------------------------------------------------");
             
+            System.out.print("Ingrese la caracteristica que defina las propiedades del producto: ");
+            caracteristica = scan.nextLine();
+            while (caracteristica.isBlank()) {
+                System.out.print("La caracteristica no puede quedar vacía, intente nuevamente ingresarla : ");
+                categoria = scan.nextLine();
+            }
             
+            System.out.println("                                                ");
+            System.out.println("  -----Asignacion de la especificacion-----");
+            System.out.println("                                                ");
             
+              System.out.println("      LISTA DE ESPECIFICACIONES EXISTENTES:");
+                System.out.println("--------------------------------------------------");
+                //Definirá en una variable la ruta del archivo que se desea leer
+                String rutaArchivoE = "C:\\algoritmosProyecto\\DefinicionEspecificacion.txt";
+                 //BufferedReader para leer el archivo
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoE))) {
+                    String texto;
+                    while ((texto = br.readLine()) != null) {  //lee los datos hasta que los datos sean nulos o inexistentes
+                    System.out.println(texto);//en cada vuelta del ciclo se imprimira los datos leidos
+                    }
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                    System.out.println("--------------------------------------------------");
             
-            
-            
-            
-            
+            System.out.print("Ingrese la especificacion que defina las propiedades del producto: ");
+            especificacion = scan.nextLine();
+            while (caracteristica.isBlank()) {
+                System.out.print("La especificacion no puede quedar vacía, intente nuevamente ingresarla : ");
+                especificacion = scan.nextLine();
+            }
             
             
             // Escribira el producto y la categoría en una sola línea
-            bw.write( "|  Producto   |   Categoria   |  Caracteristica  |   Especificacion  |\n");
-            bw.write( producto +  " | " + categoria + "\n");
+            /*bw.write( "|  Producto   |   Categoria   |  Caracteristica  |   Especificacion  |\n");*/
+            bw.write( producto +  " | " + categoria + " | " + caracteristica + "|" + especificacion + "\n");
             bw.close();
-            System.out.println("El producto " + producto + " ha sido asignado a la categoría de " + categoria);
+            
+            System.out.println(" ");
+            System.out.println("El producto " + producto +  " fue asignado a:");
+            System.out.println("Categoria:" + categoria);
+            System.out.println("Caracteristica:" + caracteristica);
+            System.out.println("Especificacion :" + especificacion);
+           
 
         } catch (IOException ex) {
             Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
@@ -840,6 +875,8 @@ public class AlgoritmosProyecto {
             } 
           
              
+        
+        
          /*try {
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
@@ -924,7 +961,58 @@ public class AlgoritmosProyecto {
      
     
         static void altaDeProductos (){
-        /* System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
+     String producto = "", categoria = "", caracteristica = "", especificacion = "", productoos="";
+            
+          File file = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt"); //Creacion de una nueva representacion de un archivo      
+             
+           System.out.println("                                                ");
+             System.out.println("  ----Ingreso del nuevo producto----");    
+             System.out.println("                                                ");
+         
+
+        try {
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            // Ingresar el nombre del nuevo producto
+            System.out.print("Ingrese el nombre del nuevo producto: ");
+            producto = scan.nextLine();
+            while (producto.isBlank()) { //si el espacio donde debe ir el producto queda en blanco se activara el bucle
+                System.out.print("El nombre no puede quedar vacío, intente nuevamente escribir el nombre: ");
+                producto = scan.nextLine();
+            }
+
+            System.out.println("                                                ");
+            System.out.println("  -----Asignacion de la categoria-----");
+            System.out.println("                                                ");
+            System.out.println("LISTA DE CATEGORIAS EXISTENTES:");
+            System.out.println("--------------------------------------------------");
+            
+            // Leer y mostrar categorías existentes
+            String rutaArchivoo = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
+            try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoo))) {
+                String texto;
+                while ((texto = br.readLine()) != null) {
+                    System.out.println(texto);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("--------------------------------------------------");
+
+            // Ingresar la categoría del producto
+            System.out.print("Ingrese la categoria que defina las propiedades del producto: ");
+            categoria = scan.nextLine();
+            while (categoria.isBlank()) {
+                System.out.print("La categoría no puede quedar vacía, intente nuevamente ingresarla: ");
+                categoria = scan.nextLine();
+            }
+
+            
+            System.out.println("                                                ");
+            System.out.println("  -----Asignacion de la caracteristica-----");
+            System.out.println("                                                ");
+            System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
                     String rutaArchivo = "C:\\algoritmosProyecto\\DefinicionCaracteristicas.txt";
@@ -938,10 +1026,52 @@ public class AlgoritmosProyecto {
                     e.printStackTrace();
                 }
                     System.out.println("--------------------------------------------------");
-                    */
+            
+            System.out.print("Ingrese la caracteristica que defina las propiedades del producto: ");
+            caracteristica = scan.nextLine();
+            while (caracteristica.isBlank()) {
+                System.out.print("La caracteristica no puede quedar vacía, intente nuevamente ingresarla : ");
+                categoria = scan.nextLine();
+            }    
+            
+            File f = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt");
             
             
             
+            
+             // Escribira el producto y la categoría en una sola línea
+            /*bw.write( "|  Producto   |   Categoria   |  Caracteristica  |   Especificacion  |\n");*/
+            bw.write( producto +  " | " + categoria + " | " + caracteristica + "|" + especificacion + "\n");
+            bw.close();
+            
+            System.out.println(" ");
+            System.out.println("El producto " + producto +  " fue asignado a:");
+            System.out.println("Categoria:" + categoria);
+            System.out.println("Caracteristica:" + caracteristica);
+            System.out.println("Especificacion :" + especificacion); 
+            
+            
+            } catch (IOException ex) {
+            Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Hubo un problema al guardar el nombre del nuevo producto y la categoría:");
+        }
+
+        System.out.println("                                                ");
+        System.out.println("  LISTA DE PRODUCTOS EXISTENTES:");
+        System.out.println("--------------------------------------------------");
+
+        // Lee y muesta los productos existentes
+        String rutaArchivo = "C:\\algoritmosProyecto\\AsignacionProductos.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String texto;
+            while ((texto = br.readLine()) != null) {
+                System.out.println(texto);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("--------------------------------------------------");
+         
             
             
         }
