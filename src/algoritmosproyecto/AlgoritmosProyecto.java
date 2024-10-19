@@ -224,7 +224,7 @@ public class AlgoritmosProyecto {
             Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
            System.out.println("El nombre de la categoria ha sido modificado por completo");
-           System.out.println("El programa nuevamente lo llevara al apartado principal de Categorías de Producto");        
+           System.out.println("El programa nuevamente lo llevara al apartado principal de Categorias de Producto");        
            break; 
             
 //Termina el caso cuando se logra modificar de manera correcta  el nombre de la categoria en el archivo de texto de acceso secuencial      
