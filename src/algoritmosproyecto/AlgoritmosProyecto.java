@@ -51,8 +51,8 @@ public class AlgoritmosProyecto {
     System.out.println("1.3 Seccion de Especificaciones de Productos");
     System.out.println("1.4 Asignacion de Categorias, Caracteristicas y Especificaciones a Productos  ");
     System.out.println("1.5 Alta de productos ");
-    System.out.println("1.6 Baja de productos  ");
-    System.out.println("1.7 Modificacion de productos  ");
+    /*System.out.println("1.6 Baja de productos  ");
+    System.out.println("1.7 Modificacion de productos  ");*/
     System.out.print("Escriba el numero de la seccion a la cual desea ingresar: ");
     seccion = scan.nextLine();
     
@@ -95,6 +95,7 @@ public class AlgoritmosProyecto {
     static void seccionCategorias() {
         
     int respuesta = 0; 
+    String confirmacionFinal = "";         
     
     String nombreCate = "";
        File f = new File("C:\\algoritmosProyecto\\DefinicionCategorías.txt"); //Creacion de una nueva representacion de un archivo    
@@ -132,7 +133,7 @@ public class AlgoritmosProyecto {
             
                 try {
                     /*ir hasta el final del archivo, ya que hasta el final del archivo almacenara los nuevos datos
-                    (por lo tanto, el true se eccarga de almacenar los datos anteriormente guardados y al
+                    (por lo tanto, el true se encarga de almacenar los datos anteriormente guardados y al
                     al ingresar nuevos datos, los almacenara dentro de los otros datos existentes)*/
                     
                     FileWriter fw = new FileWriter(f, true);
@@ -206,7 +207,7 @@ public class AlgoritmosProyecto {
                 while ((linea = br.readLine()) != null) { //verifica los datos hasta que los datos sean nulos o inexistentes  
                     String [] datos = linea.split("\\|");
                     //Compara la primera parte de la línea con modiCate. Si son iguales, modificara la línea.
-                    if (datos[0].compareTo(modiCate) == 0) {
+                    if (datos[0].trim().equalsIgnoreCase(modiCate.trim()))  {
                         datos[0] = nuevoNombre;
                         linea = String.join("|", datos);
                     }
@@ -253,28 +254,32 @@ public class AlgoritmosProyecto {
                     while (eliminarCate.isBlank()) { //bucle que impide los espacios en blanco
                     System.out.print("El nombre no puede quedar vacio, ingrese nuevamente el nombre de la categoria que desee eliminar: ");
                     eliminarCate = scan.nextLine();}
-                
+                    /*System.out.print("Realmente desea eliminar esta categoria?");
+                    confirmacionFinal = scan.nextLine();
+                    
+                    if (confirmacionFinal.equalsIgnoreCase("sí")){}*/
                     FileReader fr = new FileReader(f);
                     
                     BufferedReader br = new BufferedReader(fr);
                   
                             
-                    File fc = new File("archivo_texto_copia.txt");
+                    File fc = new File("archivo_categoriaElim_copia.txt");
                     FileWriter fw = new FileWriter(fc);
                     BufferedWriter bw = new BufferedWriter(fw);
                     
                     String linea = "";//leer el archivo original linea por linea
-                    while((linea = br.readLine()) != null) {
+                   while ((linea = br.readLine()) != null) {
                         //split divide una cadenta con base a las cadenas que ya estaban
                         //separa una cadena en un conjunto de cadenas 
                         
-                        String [] datos = linea.split("\\|");
+                       String[] datos = linea.split("\\|");
                         
                         //verifica subcadena por subcadena 
                         //se cierra el bucle cuando encuentre el mismo caracter 
-                        if (datos[0].compareTo(eliminarCate) != 0) {
+                        if (!datos[0].trim().equalsIgnoreCase(eliminarCate)) { //scribir todas las líneas que no coincidan con la categoría a eliminar 
                             //agregar los datos que no contengan el dato especifico escrito por el usuario y luego darle un salto de linea
                             bw.write(linea+"\n");
+                          /*  bw.newLine();*/
                         }
                     }
                     
@@ -283,14 +288,15 @@ public class AlgoritmosProyecto {
                     
                     //cambniarle el nombre 
                     //asignando el nombre del antiguo archivo al archivo nuevo 
-                Files.move(fc.toPath(), f.toPath(), REPLACE_EXISTING);
+                Files.move(fc.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
-                }    
+                    
             System.out.println("El nombre de la categoria se ha eliminado por completo del sistema");
             System.out.println("El programa nuevamente lo llevara al apartado principal de Categorias de Productos ");
+                }
         break;
  //Termina el caso cuando se logra eliminar de manera correcta el nombre de la categoria en el archivo de texto de acceso secuencial       
         case 4: 
@@ -375,7 +381,7 @@ public class AlgoritmosProyecto {
 //Termina el caso cuando se logre almacenar de manera correcta el dato en el archivo de tecto de acceso secuencial         
                
            case 2: //modificar caracteristica
-               System.out.println("");
+             /*  System.out.println("");
                 System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
@@ -389,7 +395,7 @@ public class AlgoritmosProyecto {
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");*/
             
                 try {
             
@@ -420,7 +426,7 @@ public class AlgoritmosProyecto {
                 while ((linea = br.readLine()) != null) { //verifica los datos hasta que los datos sean nulos o inexistentes  
                     String[] datos = linea.split("\\|");
                     //Compara la primera parte de la línea con modiCate. Si son iguales, modificara la línea.
-                    if (datos[0].compareTo(modiCarac) == 0) {
+                    if (datos[0].trim().equalsIgnoreCase(modiCarac.trim()))  {
                         datos[0] = nuevoNombre;
                         linea = String.join("|", datos);
                     }
@@ -446,7 +452,7 @@ public class AlgoritmosProyecto {
 //Termina el caso cuando se logra modificar de manera correcta  el nombre de la caracteristica en el archivo de texto de acceso secuencial      
        
            case 3: //eliminar caracteristica
-            System.out.println("");
+           /* System.out.println("");
             System.out.println("LISTA DE CARACTERISTICAS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
@@ -460,7 +466,7 @@ public class AlgoritmosProyecto {
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");*/
             
             
                 try {
@@ -489,8 +495,9 @@ public class AlgoritmosProyecto {
                         String [] datos = linea.split("\\|");
                         
                         //verifica subcadena por subcadena 
-                        //se cierra el bucle cuando encuentre el mismo caracter 
-                        if (datos[0].compareTo(eliminarCarac) != 0) {
+                        //se cierra e if (datos[0].compareTo(eliminarCarac) != 0) {
+                            //agregar los datos que no contengan el dato especifil bucle cuando encuentre el mismo caracter 
+                        if (!datos[0].trim().equalsIgnoreCase(eliminarCarac)) {
                             //agregar los datos que no contengan el dato especifico escrito por el usuario y luego darle un salto de linea
                             bw.write(linea+"\n"); //
                         }
@@ -587,7 +594,7 @@ public class AlgoritmosProyecto {
 //Termina el caso cuando se logre almacenar de manera correcta el dato en el archivo de tecto de acceso secuencial         
                
            case 2: //modificar especificacion
-               System.out.println("");
+               /*System.out.println("");
                 System.out.println("LISTA DE ESPECIFICACIONES EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
@@ -601,7 +608,7 @@ public class AlgoritmosProyecto {
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");*/
             
                 try {
             
@@ -632,7 +639,7 @@ public class AlgoritmosProyecto {
                 while ((linea = br.readLine()) != null) { //verifica los datos hasta que los datos sean nulos o inexistentes  
                     String[] datos = linea.split("\\|");
                     //Compara la primera parte de la línea con modiCate. Si son iguales, modificara la línea.
-                    if (datos[0].compareTo(modiEspe) == 0) {
+                    if (datos[0].trim().equalsIgnoreCase(modiEspe.trim()))  {
                         datos[0] = nuevoNombre;
                         linea = String.join("|", datos);
                     }
@@ -658,7 +665,7 @@ public class AlgoritmosProyecto {
            case 3: //eliminar especificacion
             System.out.println("");
             System.out.println("LISTA DE ESPECIFIACIONES EXISTENTES:");
-                    System.out.println("--------------------------------------------------");
+                   /* System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
                     String rutaArchivoo = "C:\\algoritmosProyecto\\DefinicionEspecificacion.txt";
                     //BufferedReader para leer el archivo
@@ -670,7 +677,7 @@ public class AlgoritmosProyecto {
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");*/
             
             
                 try {
@@ -692,7 +699,7 @@ public class AlgoritmosProyecto {
                     
                     String linea = "";
                     
-                    while((linea = br.readLine()) != null) {
+                   while ((linea = br.readLine()) != null) {
                         //split divide una cadena con base a las cadenas que ya estaban
                         //separa una cadena en un conjunto de cadenas 
                         
@@ -700,7 +707,7 @@ public class AlgoritmosProyecto {
                         
                         //verifica subcadena por subcadena 
                         //se cierra el bucle cuando encuentre el mismo caracter 
-                        if (datos[0].compareTo(eliminarEspe) != 0) {
+                        if (!datos[0].trim().equalsIgnoreCase(eliminarEspe)) {
                             //agregar los datos que no contengan el dato especifico escrito por el usuario y luego darle un salto de linea
                             bw.write(linea+"\n"); //
                         }
@@ -735,7 +742,8 @@ public class AlgoritmosProyecto {
              }
     
         static void asignacionAProductos() {
-            
+            String respuesta = "";
+            do{
              System.out.println("                                                ");
              System.out.println("  ---ASIGNACION DE CATEGORIAS, CARACTERISTICAS Y ESPECIFICACIONES A PRODUCTOS---");    
              System.out.println("                                                ");
@@ -872,12 +880,12 @@ public class AlgoritmosProyecto {
             e.printStackTrace();
         }
         System.out.println("--------------------------------------------------");
-            } 
+            
           
              
         
         
-         /*try {
+         try {
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
                 // Por medio de un mensaje, se le pide al usuario ingresar el nombre del nuevo producto
@@ -939,7 +947,7 @@ public class AlgoritmosProyecto {
                     System.out.println("  LISTA DE PRODUCTOS EXISTENTES:");
                     System.out.println("--------------------------------------------------");
                     //Definirá en una variable la ruta del archivo que se desea leer
-                    String rutaArchivo = "C:\\algoritmosProyecto\\AsignacionProductos.txt";
+                    rutaArchivo = "C:\\algoritmosProyecto\\AsignacionProductos.txt";
                  //BufferedReader para leer el archivo
                 try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
                       String texto;
@@ -949,21 +957,116 @@ public class AlgoritmosProyecto {
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println("--------------------------------------------------");*/
-                    
-                    
-                    /*String [] productos = new String [][]*/
+                    System.out.println("--------------------------------------------------");
+                   System.out.println("Desea ingresar otro producto? (Responder Si/No)");
+                   respuesta = scan.nextLine();
+            
+        } while (respuesta.equalsIgnoreCase("si"));
+        
+        System.out.println("Esta saliendo de la Seccion de Asignacion"); //Salir de la Seccion 
+        System.out.println("Volvera al menu principal de Gestion de Inventarios");                   
+}
                     
 
                                   
 
             
-     
+    
     
         static void altaDeProductos (){
-     String producto = "", categoria = "", caracteristica = "", especificacion = "", productoos="";
+     String producto = "", categoria = "", caracteristica = "", especificacion = "", respuesta="";
+             do{ 
+         System.out.println("                                                ");
+             System.out.println("  ----ALTA DE PRODUCTOS ----");    
+             System.out.println("                                                ");
+         
+        
+        File f = new File("C:\\algoritmosProyecto\\AltaDeProductos.txt");
+
+        try {
+            FileWriter fwr = new FileWriter(f, true);
+            BufferedWriter bwr = new BufferedWriter(fwr);
+
+            // Ingresar el nombre del nuevo producto
+            System.out.print("Ingrese el nombre del nuevo producto: ");
+            producto = scan.nextLine();
+            while (producto.isBlank()) {
+                System.out.print("El nombre no puede quedar vacío, intente nuevamente escribir el nombre: ");
+                producto = scan.nextLine();
+            }
+
             
-          File file = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt"); //Creacion de una nueva representacion de un archivo      
+            System.out.println("                                                ");
+            System.out.println("  -----Seleccion de la categoria-----");
+            System.out.println("                                                ");
+            System.out.println("LISTA DE CATEGORIAS EXISTENTES:");
+            System.out.println("--------------------------------------------------");
+            
+            // Lee y mmuestra categorías existentes
+            String rutaArchivoo = "C:\\algoritmosProyecto\\DefinicionCategorías.txt";
+            try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivoo))) {
+                String texto;
+                while ((texto = br.readLine()) != null) {
+                    System.out.println(texto);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("--------------------------------------------------");
+
+            // Ingresar la categoría del producto
+            System.out.print("Ingrese la categoria que defina las propiedades del producto: ");
+            categoria = scan.nextLine();
+            while (categoria.isBlank()) {
+                System.out.print("La categoría no puede quedar vacía, intente nuevamente ingresarla: ");
+                categoria = scan.nextLine();
+            }
+            
+            
+            System.out.println("                                                ");
+            System.out.println("  -----Seleccion de las caracteristicas-----");
+            System.out.println("                                                ");
+            String[][] datosCaracteristicas = new String[1][3];
+            // Ingresar las características
+            for (int i = 0; i < datosCaracteristicas.length; i++) {
+                System.out.println("Ingrese las caracteristicas para el producto " + producto );
+
+                for (int j = 0; j < 3; j++) {
+                    System.out.print("Ingrese la caracteristica " + (j + 1) + ": ");
+                    caracteristica = scan.nextLine();
+                    while (caracteristica.isBlank()) {
+                        System.out.print("La caracteristica no puede quedar vacia, intente nuevamente: ");
+                        caracteristica = scan.nextLine();
+                    }
+                    datosCaracteristicas[i][j] = caracteristica;
+                }
+
+                // Escribir las características en el archivo
+                bwr.write(producto + " | " + categoria + " | " + datosCaracteristicas[i][0] + " | " + datosCaracteristicas[i][1] + " | " + datosCaracteristicas[i][2]);
+                bwr.newLine();
+               
+                      
+            }
+
+            bwr.close();
+            System.out.println("El producto, su categoria y sus caracteristicas se han guardado correctamente.");
+            System.out.println("El programa nuevamente lo llevara al apartado principal de Especificaciones de Productos  ");
+        } catch (IOException ex) {
+            Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        System.out.println("--------------------------------------------------");
+                   System.out.println("Desea ingresar otro producto? (Responder Si/No)");
+                   respuesta = scan.nextLine();
+            
+        } while (respuesta.equalsIgnoreCase("si"));
+        
+        System.out.println("Esta saliendo de la Seccion de Alta de productos"); //Salir de la Seccion 
+        System.out.println("Volvera al menu principal de Gestion de Inventarios"); 
+        
+        }
+     
+          /*File file = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt"); //Creacion de una nueva representacion de un archivo      
              
            System.out.println("                                                ");
              System.out.println("  ----Ingreso del nuevo producto----");    
@@ -1027,21 +1130,34 @@ public class AlgoritmosProyecto {
                 }
                     System.out.println("--------------------------------------------------");
             
-            System.out.print("Ingrese la caracteristica que defina las propiedades del producto: ");
+            System.out.print("Ingrese la caracteristica prinicipal del producto: ");
             caracteristica = scan.nextLine();
             while (caracteristica.isBlank()) {
                 System.out.print("La caracteristica no puede quedar vacía, intente nuevamente ingresarla : ");
                 categoria = scan.nextLine();
             }    
             
-            File f = new File("C:\\algoritmosProyecto\\AsignacionProductos.txt");
+            String [][] datosCaracteristicas = new String [100][3];
+            File f = new File("C:\\algoritmosProyecto\\datosCaracteristicas.txt");
+            try {
+            FileWriter fwr = new FileWriter(f, true);
+            BufferedWriter bwr = new BufferedWriter(fwr);
+
+            // Ingresar el nombre de los datos especificos del producto
+            System.out.print("Ingrese el nombre del nuevo producto: ");
+            producto = scan.nextLine();
+            while (producto.isBlank()) { //si el espacio donde debe ir el producto queda en blanco se activara el bucle
+                System.out.print("El nombre no puede quedar vacío, intente nuevamente escribir el nombre: ");
+                producto = scan.nextLine();
+            }
+
             
             
             
             
              // Escribira el producto y la categoría en una sola línea
             /*bw.write( "|  Producto   |   Categoria   |  Caracteristica  |   Especificacion  |\n");*/
-            bw.write( producto +  " | " + categoria + " | " + caracteristica + "|" + especificacion + "\n");
+           /* bw.write( producto +  " | " + categoria + " | " + caracteristica + "|" + especificacion + "\n");
             bw.close();
             
             System.out.println(" ");
@@ -1054,27 +1170,12 @@ public class AlgoritmosProyecto {
             } catch (IOException ex) {
             Logger.getLogger(AlgoritmosProyecto.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Hubo un problema al guardar el nombre del nuevo producto y la categoría:");
-        }
+        }*/
 
-        System.out.println("                                                ");
-        System.out.println("  LISTA DE PRODUCTOS EXISTENTES:");
-        System.out.println("--------------------------------------------------");
-
-        // Lee y muesta los productos existentes
-        String rutaArchivo = "C:\\algoritmosProyecto\\AsignacionProductos.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-            String texto;
-            while ((texto = br.readLine()) != null) {
-                System.out.println(texto);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("--------------------------------------------------");
          
             
-            
-        }
+             
+        
     
         
         static void bajaDeProductos() {
